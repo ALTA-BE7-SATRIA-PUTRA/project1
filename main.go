@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
+	//Import file lain dengan _<alias> <nama gomod>/<nama folder>
+	_config "project1/config"
 
-	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
@@ -14,33 +15,20 @@ var (
 /* membuat tipe data struct disini
 sesuaikan dengan kebutuhan tabel mysql*/
 
-func InitDB() {
-	// Membuat koneksi ke db
-	// Isi sesuai db yang digunakan (jangan ada spasi dalam "")
-	connectionString := "root: <Pasword> @tcp(127.0.0.1:3306)/ <nama db> ?charset=utf8&parseTime=True&loc=Local"
+func InitialMigration() {
+	/*
+		ketika tabel belum ada di mysql
+		maka dibuat otomatis oleh gorm sesuai data pada struct
+	*/
 
-	var err error
-	// gorm.Open mereturn 2 value dan di tampung ke DB, err
-	DB, err = gorm.Open(mysql.Open(connectionString), &gorm.Config{})
+	// buka komentar ini <-- DB.AutoMigrate(&/*Sesuaikan dengan nama struct*/{})
 
-	if err != nil {
-		panic(err)
-	}
 }
 
-// func InitialMigration() {
-// 	/*
-// 	ketika tabel belum ada di mysql
-// 	maka dibuat otomatis oleh gorm sesuai data pada struct
-// 	*/
-// 	DB.AutoMigrate(&/*Sesuaikan dengan nama struct*/{})
-
-// }
-
-// func init() { // Menjalankan sebelum
-// 	InitDB()
-// 	InitialMigration()
-// }
+func init() { // Menjalankan sebelum main
+	DB = _config.InitDB //panggil variabel koneksi yang ada di _namaFolder.func
+	InitialMigration()
+}
 
 func main() {
 
