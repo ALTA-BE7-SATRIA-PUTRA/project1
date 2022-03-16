@@ -4,6 +4,7 @@ import (
 	"fmt"
 	//Import file lain dengan _<alias> <nama gomod>/<nama folder>
 	_config "project1/config"
+	_controllers "project1/controllers"
 	_tables "project1/tables"
 
 	"gorm.io/gorm"
@@ -59,7 +60,7 @@ func main() {
 		fmt.Println("Insert successfully")
 
 	case "2": // Read User
-		users := _tables.User(connect)
+		users := _controllers.Read(connect)
 		for _, value := range users {
 			fmt.Println(value.ID, "-", value.Name)
 		}
