@@ -3,27 +3,15 @@ package main
 import (
 	"fmt"
 	//Import file lain dengan _<alias> <nama gomod>/<nama folder>
-	_tables "project/tables"
 	_config "project1/config"
+	_tables "project1/tables"
 
 	"gorm.io/gorm"
 )
 
 var (
-	DB *gorm.DB
+	connect *gorm.DB
 )
-
-/* membuat tipe data struct disini
-sesuaikan dengan kebutuhan tabel mysql*/
-type User struct {
-	gorm.Model
-	Name     string `json:"name" form:"name"`
-	Email    string `gorm:"unique" json:"email" form:"email"`
-	Password string `json:"password" form:"password"`
-	Phone    string `gorm:"unique" json:"phone" form:"phone"`
-	Balance  string `json:"balance" form:"balance"`
-}
-
 
 func InitialMigration() {
 	/*
@@ -31,12 +19,12 @@ func InitialMigration() {
 		maka dibuat otomatis oleh gorm sesuai data pada struct
 	*/
 
-	DB.AutoMigrate(&_tables.User{})
+	connect.AutoMigrate(&_tables.User{})
 
 }
 
 func init() { // Menjalankan sebelum main
-	DB = _config.InitDB //panggil variabel koneksi yang ada di _namaFolder.func
+	connect = _config.InitDB() //panggil variabel koneksi yang ada di _namaFolder.func
 	InitialMigration()
 }
 
@@ -48,9 +36,9 @@ func main() {
 	var pilihan string
 	fmt.Scanln(&pilihan)
 
-	// switch pilihan {
+	switch pilihan {
 	case "1": // Add User
-		newUser := _entities.User{}
+		newUser := _tables.User{}
 		fmt.Println("Masukkan Nama:")
 		fmt.Scanln(&newUser.Name)
 		fmt.Println("Masukkan Email:")
@@ -60,19 +48,28 @@ func main() {
 		fmt.Println("Masukkan Phone:")
 		fmt.Scanln(&newUser.Phone)
 
-	// case "2": // Read User
+		tx := connect.Save(&newUser)
+		if tx.Error != nil {
+			// panic(tx.Error)
+			fmt.Println("error when insert data")
+		}
+		if tx.RowsAffected == 0 {
+			fmt.Println("insert failed")
+		}
+		fmt.Println("Insert successfully")
+		// case "2": // Read User
 
-	// case "3": // Update User
+		// case "3": // Update User
 
-	// case "4": // Delete User
+		// case "4": // Delete User
 
-	// case "5": // Top Up
+		// case "5": // Top Up
 
-	// case "6": // Transfer
+		// case "6": // Transfer
 
-	// case "7": // History Top Up
+		// case "7": // History Top Up
 
-	// case "8": // History Transfer
+		// case "8": // History Transfer
 
 	}
 }
