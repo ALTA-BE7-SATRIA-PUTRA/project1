@@ -57,7 +57,12 @@ func main() {
 			fmt.Println("insert failed")
 		}
 		fmt.Println("Insert successfully")
-		// case "2": // Read User
+
+	case "2": // Read User
+		users := _tables.User(connect)
+		for _, value := range users {
+			fmt.Println(value.ID, "-", value.Name)
+		}
 
 		// case "3": // Update User
 
