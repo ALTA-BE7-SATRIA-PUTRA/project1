@@ -16,3 +16,12 @@ func Read(db *gorm.DB) []_tables.User {
 	}
 	return users
 }
+func Delete(db *gorm.DB) []_tables.User {
+	var users []_tables.User
+	tx := db.Where("ID = ?", 3).Delete(&users)
+	if tx.Error != nil {
+		// panic(tx.Error)
+		fmt.Println("Deleted Failed ", tx.Error)
+	}
+	return users
+}

@@ -67,8 +67,13 @@ func main() {
 
 		// case "3": // Update User
 
-		// case "4": // Delete User
-
+	case "4": // Delete User
+		err := _controllers.Delete(connect)
+		if err != nil {
+			fmt.Println("Deleted Failed")
+		} else {
+			fmt.Println("Done")
+		}
 		// case "5": // Top Up
 
 		// case "6": // Transfer
