@@ -72,7 +72,7 @@ func main() {
 		if err != nil {
 			fmt.Println("Deleted Failed")
 		} else {
-			fmt.Println("Done")
+			fmt.Println("Delete Succes")
 		}
 		// case "5": // Top Up
 
