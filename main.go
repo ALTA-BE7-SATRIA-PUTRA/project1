@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	//Import file lain dengan _<alias> <nama gomod>/<nama folder>
+	_tables "project/tables"
 	_config "project1/config"
 
 	"gorm.io/gorm"
@@ -14,6 +15,15 @@ var (
 
 /* membuat tipe data struct disini
 sesuaikan dengan kebutuhan tabel mysql*/
+type User struct {
+	gorm.Model
+	Name     string `json:"name" form:"name"`
+	Email    string `gorm:"unique" json:"email" form:"email"`
+	Password string `json:"password" form:"password"`
+	Phone    string `gorm:"unique" json:"phone" form:"phone"`
+	Balance  string `json:"balance" form:"balance"`
+}
+
 
 func InitialMigration() {
 	/*
@@ -21,7 +31,7 @@ func InitialMigration() {
 		maka dibuat otomatis oleh gorm sesuai data pada struct
 	*/
 
-	// buka komentar ini <-- DB.AutoMigrate(&/*Sesuaikan dengan nama struct*/{})
+	DB.AutoMigrate(&_tables.User{})
 
 }
 
@@ -39,7 +49,16 @@ func main() {
 	fmt.Scanln(&pilihan)
 
 	// switch pilihan {
-	// case "1": // Add User
+	case "1": // Add User
+		newUser := _entities.User{}
+		fmt.Println("Masukkan Nama:")
+		fmt.Scanln(&newUser.Name)
+		fmt.Println("Masukkan Email:")
+		fmt.Scanln(&newUser.Email)
+		fmt.Println("Masukkan Password:")
+		fmt.Scanln(&newUser.Password)
+		fmt.Println("Masukkan Phone:")
+		fmt.Scanln(&newUser.Phone)
 
 	// case "2": // Read User
 
@@ -55,5 +74,5 @@ func main() {
 
 	// case "8": // History Transfer
 
-	// }
+	}
 }
