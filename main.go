@@ -77,12 +77,17 @@ func main() {
 		} else {
 			fmt.Println("Delete Succes")
 		}
+	case "5": // Top Up
+		_controllers.TopUp(connect)
+	// case "6": // Transfer
 	// case "5": // Top Up
 
 	case "6": // Transfer
 		_controllers.Transfer(connect)
 		// case "7": // History Top Up
 
+	case "7": // History Top Up
+		// _controllers.HistoryTopUp(connect)
 		// case "8": // History Transfer
 
 	}
