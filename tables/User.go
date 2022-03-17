@@ -10,7 +10,7 @@ type User struct {
 	Email    string `gorm:"unique" json:"email" form:"email"`
 	Password string `json:"password" form:"password"`
 	Phone    string `gorm:"unique" gorm:"primarykey" json:"phone" form:"phone"`
-	Balance  string `json:"balance" form:"balance"`
+	Balance  string `gorm:"default:0" json:"balance" form:"balance"`
 }
 type TopUp struct {
 	gorm.Model
