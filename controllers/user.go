@@ -44,7 +44,6 @@ func Update(db *gorm.DB) {
 	//fungsi untuk update
 
 	user := _tables.User{}
-	// NameChange := ""
 	var newName, newEmail, newPhone string
 	fmt.Println("Masukkan ID User yang akan di Update:")
 	fmt.Scanln(&user.ID)
@@ -69,7 +68,8 @@ func Delete(db *gorm.DB) []_tables.User {
 	return users
 }
 func Transfer(db *gorm.DB) {
-	//tampilkan data user yang akan di transfer
+
+	//tampilkan data user untuk memilih
 	var users []_tables.User
 	tx := db.Find(&users)
 	if tx.Error != nil {
@@ -95,4 +95,36 @@ func Transfer(db *gorm.DB) {
 	//db.Model(&tf).Where("Phone = ?", &tf.Phone).Updates("balance", &tf.Balance + nominal)
 	db.Exec("UPDATE users SET balance = ? WHERE phone = ?", gorm.Expr("balance - ?", nominal), sendPhone)
 	db.Exec("UPDATE users SET balance = ? WHERE phone = ?", gorm.Expr("balance + ?", nominal), ReceiverPhone)
+}
+
+func TopUp(db *gorm.DB) {
+	//tampilkan data user yang akan di transfer
+	var users []_tables.User
+	top_ups := _tables.TopUp{}
+	tx := db.Find(&users)
+	if tx.Error != nil {
+		// panic(tx.Error)
+		fmt.Println("error ", tx.Error)
+	}
+
+	fmt.Println("ID\t Name ", "\t", "\t", "\t Phone Number \t", "\t Balance")
+	for _, value := range users {
+
+		fmt.Println(value.ID, "\t", value.Name, "\t", "\t", value.Phone, "\t", value.Balance)
+	}
+	fmt.Println()
+
+	//fungsi topup
+	// var Phone, nominal string
+	fmt.Print("Insert Phone Number to be TopUp: ")
+	fmt.Scanln(&top_ups.Phone)
+	fmt.Print("Input Nominal TopUp: ")
+	fmt.Scanln(&top_ups.Nominal)
+	db.Exec("UPDATE users SET balance = ? WHERE phone = ?", gorm.Expr("balance + ?", top_ups.Nominal), top_ups.Phone)
+
+	//INSERT INTO TOPUP
+	db.Select("phone", "nominal").Create(&top_ups)
+}
+func HistoryTopUp(db *gorm.DB) {
+
 }
