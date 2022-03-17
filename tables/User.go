@@ -14,7 +14,7 @@ type User struct {
 }
 type TopUp struct {
 	gorm.Model
-	Phone      string `json:"phone" form:"phone"`
+	Phones     string `json:"phone" form:"phone"`
 	Nominal    string `json:"nominal" form:"nominal"`
 	Balance    string `json:"balance" form:"balance"`
 	Phone_User string `gorm:"foreignKey:Phone" json:"name" form:"name"`
