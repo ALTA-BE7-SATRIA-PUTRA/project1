@@ -80,6 +80,15 @@ func main() {
 		// connect.Model(&_tables.User{}).Limit(10).Find(&_tables.User{})
 		// case "4": // Delete User
 
+		// case "3": // Update User
+
+	case "4": // Delete User
+		err := _controllers.Delete(connect)
+		if err != nil {
+			fmt.Println("Deleted Failed")
+		} else {
+			fmt.Println("Delete Succes")
+		}
 		// case "5": // Top Up
 
 		// case "6": // Transfer
