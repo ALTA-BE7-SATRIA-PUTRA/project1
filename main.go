@@ -61,8 +61,9 @@ func main() {
 
 	case "2": // Read User
 		users := _controllers.Read(connect)
+		fmt.Println("ID\tName\t\t\tEmail\t\tPhone\t\tBalance")
 		for _, value := range users {
-			fmt.Println(value.ID, "-", value.Name)
+			fmt.Println(value.ID, "\t", value.Name, "\t", value.Email, "\t", value.Phone, "\t", value.Balance)
 		} // tset
 
 	case "3": // Update User
