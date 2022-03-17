@@ -16,6 +16,18 @@ func Read(db *gorm.DB) []_tables.User {
 	}
 	return users
 }
+
+func SelectUser(db *gorm.DB) []_tables.User {
+	var users []_tables.User
+	tx := db.Select(&users)
+	if tx.Error != nil {
+		// panic(tx.Error)
+		fmt.Println("error ", tx.Error)
+	}
+	return users
+}
+
+// func (db *DB) Select(query interface{}, args ...interface{}) (tx *DB)
 func Delete(db *gorm.DB) []_tables.User {
 	var users []_tables.User
 	tx := db.Where("ID = ?", 3).Delete(&users)
