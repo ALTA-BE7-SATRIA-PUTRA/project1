@@ -21,7 +21,8 @@ func InitialMigration() {
 	*/
 
 	connect.AutoMigrate(&_tables.User{})
-
+	connect.AutoMigrate(&_tables.TopUp{})
+	connect.AutoMigrate(&_tables.Transfer{})
 }
 
 func init() { // Menjalankan sebelum main
