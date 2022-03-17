@@ -96,11 +96,20 @@ func Transfer(db *gorm.DB) {
 	db.Exec("UPDATE users SET balance = ? WHERE phone = ?", gorm.Expr("balance - ?", nominal), sendPhone)
 	db.Exec("UPDATE users SET balance = ? WHERE phone = ?", gorm.Expr("balance + ?", nominal), ReceiverPhone)
 }
+<<<<<<< HEAD
+=======
+func HistoryTopUp(db *gorm.DB) {
+
+}
+>>>>>>> f7925227318c25da731822c41d856bde8c8ed9c9
 
 func TopUp(db *gorm.DB) {
 	//tampilkan data user yang akan di transfer
 	var users []_tables.User
+<<<<<<< HEAD
 	top_ups := _tables.TopUp{}
+=======
+>>>>>>> f7925227318c25da731822c41d856bde8c8ed9c9
 	tx := db.Find(&users)
 	if tx.Error != nil {
 		// panic(tx.Error)
@@ -115,6 +124,7 @@ func TopUp(db *gorm.DB) {
 	fmt.Println()
 
 	//fungsi topup
+<<<<<<< HEAD
 	// var Phone, nominal string
 	fmt.Print("Insert Phone Number to be TopUp: ")
 	fmt.Scanln(&top_ups.Phone)
@@ -127,4 +137,13 @@ func TopUp(db *gorm.DB) {
 }
 func HistoryTopUp(db *gorm.DB) {
 
+=======
+	var Phone, nominal string
+	fmt.Print("Insert Phone Number to be TopUp: ")
+	fmt.Scanln(&Phone)
+	fmt.Print("Input Nominal TopUp: ")
+	fmt.Scanln(&nominal)
+	db.Exec("UPDATE users SET balance = ? WHERE phone = ?", gorm.Expr("balance + ?", nominal), Phone)
+	db.Exec("UPDATE topups SET balance = ? WHERE phone = ?", gorm.Expr("balance + ?", nominal), Phone)
+>>>>>>> f7925227318c25da731822c41d856bde8c8ed9c9
 }

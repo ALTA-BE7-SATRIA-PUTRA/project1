@@ -79,10 +79,18 @@ func main() {
 		}
 	case "5": // Top Up
 		_controllers.TopUp(connect)
+<<<<<<< HEAD
+=======
+	// case "6": // Transfer
+	// case "5": // Top Up
+
+>>>>>>> f7925227318c25da731822c41d856bde8c8ed9c9
 	case "6": // Transfer
 		_controllers.Transfer(connect)
 		// case "7": // History Top Up
 
+	case "7": // History Top Up
+		// _controllers.HistoryTopUp(connect)
 		// case "8": // History Transfer
 
 	}
