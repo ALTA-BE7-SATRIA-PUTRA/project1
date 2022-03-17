@@ -63,7 +63,7 @@ func main() {
 		users := _controllers.Read(connect)
 		for _, value := range users {
 			fmt.Println(value.ID, "-", value.Name)
-		}
+		} // tset
 
 	case "3": // Update User
 		user := _tables.User{}
