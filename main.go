@@ -65,8 +65,19 @@ func main() {
 			fmt.Println(value.ID, "-", value.Name)
 		}
 
-		// case "3": // Update User
+	case "3": // Update User
+		user := _tables.User{}
+		// NameChange := ""
+		var newName string
+		fmt.Println("Masukkan ID User yang akan di Udate:")
+		fmt.Scanln(&user.ID)
+		fmt.Println("Masukkan Nama Baru:")
+		fmt.Scanln(&newName)
+		connect.Model(&user).Where("ID = ?", &user.ID).Update("name", newName)
 
+		// connect.Where("name = (&name)", connect.Table("Users").Select("AVG(amount)")).Find(&orders)
+
+		// connect.Model(&_tables.User{}).Limit(10).Find(&_tables.User{})
 		// case "4": // Delete User
 
 		// case "5": // Top Up
