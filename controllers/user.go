@@ -68,3 +68,31 @@ func Delete(db *gorm.DB) []_tables.User {
 	}
 	return users
 }
+func Transfer(db *gorm.DB) {
+	//tampilkan data user yang akan di transfer
+	var users []_tables.User
+	tx := db.Find(&users)
+	if tx.Error != nil {
+		// panic(tx.Error)
+		fmt.Println("error ", tx.Error)
+	}
+
+	fmt.Println("ID\t Name ", "\t", "\t Email \t", "\t \t Phone Number", "\t \t Balance")
+	for _, value := range users {
+
+		fmt.Println(value.ID, "\t", value.Name, "\t", value.Email, "\t", value.Phone, "\t", value.Balance)
+	}
+	fmt.Println()
+	//tf := _tables.Transfer{}
+	var nominal, sendPhone, ReceiverPhone string
+	fmt.Println("Include Phone Number sender :")
+	fmt.Scanln(&sendPhone)
+	fmt.Println("Include Receiver Phone Number :")
+	fmt.Scanln(&ReceiverPhone)
+	fmt.Print("Insert Nominal:")
+	fmt.Scanln(&nominal)
+	//db.Model(&tf).Where("Phone = ?", &tf.Phone).Updates("balance", &tf.Balance - nominal)
+	//db.Model(&tf).Where("Phone = ?", &tf.Phone).Updates("balance", &tf.Balance + nominal)
+	db.Exec("UPDATE users SET balance = ? WHERE phone = ?", gorm.Expr("balance - ?", nominal), sendPhone)
+	db.Exec("UPDATE users SET balance = ? WHERE phone = ?", gorm.Expr("balance + ?", nominal), ReceiverPhone)
+}
