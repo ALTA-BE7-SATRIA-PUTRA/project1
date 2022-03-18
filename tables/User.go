@@ -14,10 +14,10 @@ type User struct {
 }
 type TopUp struct {
 	gorm.Model
-	Phone      string `json:"phone" form:"phone"`
-	Nominal    string `json:"nominal" form:"nominal"`
-	Balance    string `json:"balance" form:"balance"`
-	Phone_User string `gorm:"foreignKey:Phone" json:"name" form:"name"`
+	Phone   string `json:"phone" form:"phone"`
+	Nominal string `json:"nominal" form:"nominal"`
+	// Balance string `gorm:"default:0" json:"balance" form:"balance"`
+	// Phone_User string `gorm:"foreignKey:Phone" json:"name" form:"name"`
 }
 type Transfer struct {
 	gorm.Model
