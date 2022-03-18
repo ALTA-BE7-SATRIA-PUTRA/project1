@@ -88,7 +88,7 @@ func main() {
 
 	case "7": // History Top Up
 		// _controllers.HistoryTopUp(connect)
-		// case "8": // History Transfer
-
+	case "8": // History Transfer
+		_controllers.HistoryTransfer(connect)
 	}
 }

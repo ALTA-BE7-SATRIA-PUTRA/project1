@@ -21,6 +21,7 @@ type TopUp struct {
 }
 type Transfer struct {
 	gorm.Model
+	//ID_nama []*User   `gorm:"many2many:user_name;"`
 	Phone      string `json:"phone" form:"phone"`
 	Nominal    string `json:"nominal" form:"nominal"`
 	Balance    string `json:"balance" form:"balance"`

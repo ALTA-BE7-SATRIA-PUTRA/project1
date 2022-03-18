@@ -119,3 +119,19 @@ func HistoryTopUp(db *gorm.DB) {
 	db.Exec("UPDATE users SET balance = ? WHERE phone = ?", gorm.Expr("balance - ?", nominal), sendPhone)
 	db.Exec("UPDATE users SET balance = ? WHERE phone = ?", gorm.Expr("balance + ?", nominal), ReceiverPhone)
 }
+func HistoryTransfer(db *gorm.DB) {
+	//tampilkan history
+	var users []_tables.Transfer
+	tx := db.Find(&users)
+	if tx.Error != nil {
+		// panic(tx.Error)
+		fmt.Println("error ", tx.Error)
+	}
+
+	fmt.Println("ID\t  \t", "\t", "\t Phone Number \t", "\t Nominal \t", "\t Saldo", "\t Phone User")
+	for _, value := range users {
+
+		fmt.Println(value.ID, "\t", "\t", "\t", value.Phone, "\t", value.Phone, "\t", value.Nominal, "\t", value.Balance, "\t", value.Phone_User)
+	}
+	fmt.Println()
+}
