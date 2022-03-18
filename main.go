@@ -34,22 +34,21 @@ func main() {
 
 	fmt.Println("Pilih Menu \n1 = Add User \n2 = Read User\n3 = Update")
 	fmt.Println("4 = Delete User \n5 = Top-Up \n6 = Transfer \n7 = History Top-Up \n8 = History Transfer")
-	fmt.Print("Masukan pilihan anda : ")
+	fmt.Print("your choice : ")
 	var pilihan string
 	fmt.Scanln(&pilihan)
 
 	switch pilihan {
 	case "1": // Add User
 		newUser := _tables.User{}
-		fmt.Println("Masukkan Nama:")
+		fmt.Print("Input Name: ")
 		fmt.Scanln(&newUser.Name)
-		fmt.Println("Masukkan Email:")
+		fmt.Print("Input Email: ")
 		fmt.Scanln(&newUser.Email)
-		fmt.Println("Masukkan Password:")
+		fmt.Print("Input Password: ")
 		fmt.Scanln(&newUser.Password)
-		fmt.Println("Masukkan Phone:")
+		fmt.Print("Input Phone: ")
 		fmt.Scanln(&newUser.Phone)
-
 		tx := connect.Save(&newUser)
 		if tx.Error != nil {
 			// panic(tx.Error)
@@ -59,17 +58,14 @@ func main() {
 			fmt.Println("insert failed")
 		}
 		fmt.Println("Insert successfully")
-
 	case "2": // Read User
 		users := _controllers.Read(connect)
 		fmt.Println("ID\tName\t\t\tEmail\t\tPhone\t\tBalance")
 		for _, value := range users {
 			fmt.Println(value.ID, "\t", value.Name, "\t", value.Email, "\t", value.Phone, "\t", value.Balance)
 		} // tset
-
 	case "3": // Update User
 		_controllers.Update(connect)
-
 	case "4": // Delete User
 		err := _controllers.Delete(connect)
 		if err != nil {
@@ -81,11 +77,9 @@ func main() {
 		_controllers.TopUp(connect)
 	case "6": // Transfer
 		_controllers.Transfer(connect)
-		// case "7": // History Top Up
-
 	case "7": // History Top Up
-		// _controllers.HistoryTopUp(connect)
-		// case "8": // History Transfer
-
+		_controllers.HistoryTopUp(connect)
+	case "8": // History Transfer
+		_controllers.HistoryTransfer(connect)
 	}
 }
